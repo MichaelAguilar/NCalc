@@ -32,7 +32,8 @@ namespace NCalc.Domain
             throw new Exception("The method or operation is not implemented.");
         }
 
-        private static Type[] CommonTypes = new[] { typeof(Int64), typeof(Double), typeof(Boolean), typeof(String), typeof(Decimal) };
+        private static Type[] CommonTypes = new[] { typeof(Int64), typeof(Double), typeof(Boolean), 
+            typeof(Decimal), typeof(Int32), typeof(DateTime), typeof(String) };
 
     /// <summary>
         /// Gets the the most precise type.
@@ -150,7 +151,7 @@ namespace NCalc.Domain
                     break;
 
                 case BinaryExpressionType.Minus:
-                    Result = Numbers.Soustract(left(), right());
+                    Result = Numbers.Subtract(left(), right());
                     break;
 
                 case BinaryExpressionType.Modulo:
@@ -216,7 +217,7 @@ namespace NCalc.Domain
                     break;
 
                 case UnaryExpressionType.Negate:
-                    Result = Numbers.Soustract(0, Result);
+                    Result = Numbers.Subtract(0, Result);
                     break;
 
                 case UnaryExpressionType.BitwiseNot:
