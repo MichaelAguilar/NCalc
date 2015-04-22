@@ -135,21 +135,21 @@ namespace NCalc.Tests
         }
 
         [TestMethod]
-		public void ExpressionShouldEvaluateParameters()
-		{
-			var e = new Expression("Round(Pow(Pi, 2) + Pow([Pi Squared], 2) + [X], 2)");
-		    
-			e.Parameters["Pi Squared"] = new Expression("Pi * [Pi]");
-			e.Parameters["X"] = 10;
+        public void ExpressionShouldEvaluateParameters()
+        {
+            var e = new Expression("Round(Pow(Pi, 2) + Pow([Pi Squared], 2) + [X], 2)");
+            
+            e.Parameters["Pi Squared"] = new Expression("Pi * [Pi]");
+            e.Parameters["X"] = 10;
 
-			e.EvaluateParameter += delegate(string name, ParameterArgs args)
-				{
-					if (name == "Pi")
-						args.Result = 3.14;
-				};
+            e.EvaluateParameter += delegate(string name, ParameterArgs args)
+                {
+                    if (name == "Pi")
+                        args.Result = 3.14;
+                };
 
-			Assert.AreEqual(117.07, e.Evaluate());
-		}
+            Assert.AreEqual(117.07, e.Evaluate());
+        }
 
         [TestMethod]
         public void ShouldEvaluateConditionnal()
