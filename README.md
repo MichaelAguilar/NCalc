@@ -79,13 +79,14 @@ Debug.Assert(17 == e.Evaluate());
 
 ### How Do I Build It?
 In order to cut down on the dll size and make it easier to reference in other projects, I've used ILMerge to incorporate the Antlr3 functionality into the NCalc .dll that is built. Doing this requires the following steps:  
+
 1. Install [ILMerge](http://www.microsoft.com/en-us/download/details.aspx?id=17630).
-2. Create the file Ilmerge.CSharp.targets in your MSBuild directory.
-  - x86 Platforms: C:\Program Files\MSBuild
-  - x64 Platforms: C:\Program Files (x86)\MSBuild
-3. See the [ILMerge Sample](https://github.com/MichaelAguilar/NCalc/wiki/ILMerge-Sample-File) on the Wiki for details on the file structure.
-4. Make the following changes to your csproj files via your text editor of choice:
-  - Add the `<Ilmerge>True</Ilmerge>` tag to the Antlr reference (if it doesn't exist already).
-  - Replace `Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />` with `<Import Project="$(MSBuildExtensionsPath)\Ilmerge.CSharp.targets" />`.
-5. Build as you normally would.
-*Note that if you add/remove references from Visual Studio you will have to manually make the changes listed in Step #4 again.*
+2. Create the file `Ilmerge.CSharp.targets` in your MSBuild directory.
+  1. x86 Platforms: C:\Program Files\MSBuild
+  2. x64 Platforms: C:\Program Files (x86)\MSBuild
+  3. See the [ILMerge Sample](https://github.com/MichaelAguilar/NCalc/wiki/ILMerge-Sample-File) on the Wiki for details on the file structure.
+3. Make the following changes to your csproj files via your text editor of choice:
+  1. Add the `<Ilmerge>True</Ilmerge>` tag to the Antlr reference (if it doesn't exist already).
+    * Note that if you add/remove references from Visual Studio you will have to manually add this tag back.
+  3. Replace `Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />` with `<Import Project="$(MSBuildExtensionsPath)\Ilmerge.CSharp.targets" />`.
+4. Build as you would normally.
