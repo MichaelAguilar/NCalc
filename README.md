@@ -1,16 +1,16 @@
 # NCalc  
 NCalc is a mathematical expression parser for .NET. NCalc can parse any expression and evaluate the result, including static or dynamic parameters and custom functions.
 
-  - [What Is It?](#)
-  - [What Does It Do?](#)
+  - [What Is It?](#what-is-it)
+  - [What Does It Do?](#what-does-it-do)
       - [Simple Expressions](#)
       - [Evaluates .NET data types](#)
       - [Handles mathematical functional from System.Math](#)
       - [Evaluates custom functions](#)
       - [Handles unicode characters](#)
       - [Define parameters, even dynamic or expressions](#)
-  - [How Do I Build It?](#)
-  
+  - [How Do I Build It?](#how-do-i-build-it)
+
 ### What Is It?
 Nalc was created by [Sébastien Ros](https://www.codeplex.com/site/users/view/sebastienros) and offered under the MIT license via [CodePlex](https://ncalc.codeplex.com/) and [NuGet](https://www.nuget.org/packages/ncalc/). 
 
