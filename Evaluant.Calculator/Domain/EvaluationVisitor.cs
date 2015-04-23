@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NCalc.Domain
 {
@@ -35,7 +36,7 @@ namespace NCalc.Domain
         private static Type[] CommonTypes = new[] { typeof(Int64), typeof(Double), typeof(Boolean), 
             typeof(Decimal), typeof(Int32), typeof(DateTime), typeof(String) };
 
-    /// <summary>
+        /// <summary>
         /// Gets the the most precise type.
         /// </summary>
         /// <param name="a">Type a.</param>
@@ -43,21 +44,63 @@ namespace NCalc.Domain
         /// <returns></returns>
         private static Type GetMostPreciseType(Type a, Type b)
         {
-            foreach (Type t in CommonTypes)
-            {
-                if (a == t || b == t)
-                {
-                    return t;
-                }
-            }
 
-            return a;
+            return CommonTypes.
+                Where(t => a == t || b == t).
+                DefaultIfEmpty(a).
+                FirstOrDefault();
         }
-
+                
         public int CompareUsingMostPreciseType(object a, object b)
         {
             Type mpt = GetMostPreciseType(a.GetType(), b.GetType());
+            mpt = OverflowCheck(a, b, mpt);
             return Comparer.Default.Compare(Convert.ChangeType(a, mpt), Convert.ChangeType(b, mpt));
+        }
+
+        /// <summary>
+        /// Checks to make sure the "Most Precise Type" won't create an overflow issue
+        /// </summary>
+        /// <param name="a">First Object</param>
+        /// <param name="b">Second Object</param>
+        /// <returns>Most Precise Type accounting for potential Overflow Exceptions</returns>
+        /// <remarks>Hackiest solution ever. If anyone sees this and has a better suggestion
+        /// for handling potential overflow values, feel free to make a Pull Request.</remarks>
+        private Type OverflowCheck(object a, object b, Type mpt)
+        {
+            if(mpt == typeof(int))
+            {
+                try
+                {
+                    int testA = Convert.ToInt32(a);
+                    int testB = Convert.ToInt32(b);
+                }
+                catch (OverflowException)
+                {
+                    return typeof(Int64);
+                }
+                catch (Exception)
+                {
+                    //nomnomnom
+                }
+            }
+            else if (mpt == typeof(float))
+            {
+                try
+                {
+                    float testA = Convert.ToSingle(a);
+                    float testB = Convert.ToSingle(b);
+                }
+                catch (OverflowException)
+                {
+                    return typeof(Double);
+                }
+                catch (Exception)
+                {
+                    //nomnomnom
+                }
+            }
+            return mpt;
         }
 
         public override void Visit(TernaryExpression expression)
