@@ -3,12 +3,12 @@ NCalc is a mathematical expression parser for .NET. NCalc can parse any expressi
 
   - [What Is It?](#what-is-it)
   - [What Does It Do?](#what-does-it-do)
-      - [Simple Expressions](#)
-      - [Evaluates .NET data types](#)
-      - [Handles mathematical functional from System.Math](#)
-      - [Evaluates custom functions](#)
-      - [Handles unicode characters](#)
-      - [Define parameters, even dynamic or expressions](#)
+      - [Simple Expressions](#simple-expressions)
+      - [Evaluates .NET data types](#evaluates-net-data-types)
+      - [Handles Mathematical Functions From System.Math](#handles-mathematical-functions-from-systemmath)
+      - [Evaluates Custom Functions](#evaluates-custom-functions)
+      - [Handles Unicode Characters](#handles-unicode-characters)
+      - [Define Parameters, Even Dynamic or Expressions](#define-parameters-even-dynamic-or-expressions)
   - [How Do I Build It?](#how-do-i-build-it)
 
 ### What Is It?
@@ -34,14 +34,14 @@ Debug.Assert(17 == e.Evaluate());
   Debug.Assert("azerty" == new Expression("'azerty'").Evaluate()); // strings
 ```
 
-##### Handles mathematical functional from System.Math
+##### Handles Mathematical Functions From System.Math
 ```c#
   Debug.Assert(0 == new Expression("Sin(0)").Evaluate());
   Debug.Assert(2 == new Expression("Sqrt(4)").Evaluate());
   Debug.Assert(0 == new Expression("Tan(0)").Evaluate());
 ```
 
-##### Evaluates custom functions
+##### Evaluates Custom Functions
 ```c#
   Expression e = new Expression("SecretOperation(3, 6)");
   e.EvaluateFunction += delegate(string name, FunctionArgs args)
@@ -53,7 +53,7 @@ Debug.Assert(17 == e.Evaluate());
   Debug.Assert(9 == e.Evaluate());
 ```
 
-##### Handles unicode characters
+##### Handles Unicode Characters
 ```c#
   Debug.Assert("経済協力開発機構" == new Expression("'経済協力開発機構'").Evaluate());
   Debug.Assert("Hello" == new Expression(@"'\u0048\u0065\u006C\u006C\u006F'").Evaluate());
@@ -61,7 +61,7 @@ Debug.Assert(17 == e.Evaluate());
   Debug.Assert("\u0100" == new Expression(@"'\u0100'").Evaluate());
 ```
 
-##### Define parameters, even dynamic or expressions
+##### Define Parameters, Even Dynamic or Expressions
 ```c#
   Expression e = new Expression("Round(Pow([Pi], 2) + Pow([Pi2], 2) + [X], 2)");
 
